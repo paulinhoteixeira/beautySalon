@@ -18,40 +18,61 @@ for (const link of links) {
 }
 
 // MUDAR O HEADER DA PÁGINA QUANDO DER SCROLL
-const header = document.querySelector("#header");
-const navHeight = header.offsetHeight;
 
-window.addEventListener("scroll", function () {
+function changeHeaderWhenScroll() {
+  const header = document.querySelector("#header");
+  const navHeight = header.offsetHeight;
   if (window.scrollY >= navHeight) {
     header.classList.add("scroll");
   } else {
     header.classList.remove("scroll");
   }
-});
+}
 
 // TESTIMONIALS CAROUSEL SLIDER SWIPER
-const swiper = new Swiper('.swiper', {
+const swiper = new Swiper(".swiper", {
   slidesPerView: 1,
   pagination: {
-    el: '.swiper-pagination',
+    el: ".swiper-pagination",
   },
   mousewheel: true,
   keyboard: true,
 });
 
+// SCROLLREVEAL: MOSTRAR ELEMENTOS QUANDO DER SCROLL NA PÁGINA
+const scrollReveal = ScrollReveal({
+  origin: "top",
+  distance: "30px",
+  duration: 700,
+  reset: true,
+});
 
-// SCROLLREVEAL: MOSTRAR ELEMENTOS QUANDO DER SCROLL NA PÁGINA  
-  const scrollReveal = ScrollReveal({
-    origin: "top",
-    distance: "30px",
-    duration: 700,
-    reset: true
-  })
-
-  scrollReveal.reveal(
-    `#home .image, #home .text,
+scrollReveal.reveal(
+  `#home .image, #home .text,
     #about .image, #about .text,
     #services header, #services .card,
     #testimonials header, #testimonials .testimonials,
-    #contact .text, #contact .links
-    `, {nterval: 100})
+    #contact .text, #contact .links,
+    footer .brand, footer .social
+    `,
+  { nterval: 100 }
+);
+
+// BOTÃO VOLTAR PARA O TOPO
+
+function backToTop() {
+  const backToTopButton = document.querySelector(".back-to-top");
+
+  if (window.scrollY >= 560) {
+    backToTopButton.classList.add("show");
+  } else {
+    backToTopButton.classList.remove("show");
+  }
+}
+
+
+// WHEN SCROLL
+window.addEventListener("scroll", function () {
+  changeHeaderWhenScroll();
+  backToTop();
+});
